@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from '../../utils/test-utils'
+import { render, screen } from '../../utils/test-utils'
 import user from '@testing-library/user-event';
 import { vi } from 'vitest'
 import UserForm from './UserForm';
