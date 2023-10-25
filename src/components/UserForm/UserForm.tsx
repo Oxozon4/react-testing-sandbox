@@ -17,14 +17,14 @@ const UserForm = ({ onUserAdd }: UserFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Name</label>
-        <input value={name} type='text' onChange={(e) => setName(e.target.value)} />
+        <label htmlFor='name'>Name</label>
+        <input id='name' value={name} type='text' onChange={(e) => setName(e.target.value)} />
       </div>
       <div>
-        <label>Email</label>
-        <input value={email} type='text' onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor='email'>Email</label>
+        <input id='email' value={email} type='text' onChange={(e) => setEmail(e.target.value)} />
       </div>
-      <button type='submit'>Add User</button>
+      <button>Add User</button>
     </form>
   );
 }
