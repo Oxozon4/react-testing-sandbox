@@ -1,5 +1,6 @@
 import { render, screen, userEvent } from '../../utils/test-utils'
 import user from '@testing-library/user-event';
+import { vi } from 'vitest'
 import UserForm from './UserForm';
 
 test('it shows two inputs and a button', () => {
@@ -10,25 +11,22 @@ test('it shows two inputs and a button', () => {
   expect(button).toBeInTheDocument();
 });
 
-test('it calls onUserAdd when the form is submitted', () => {
-  const argList: any = [];
-  const callback = (...args: any) => {
-    argList.push(args)
-  }
-  render(<UserForm onUserAdd={callback} />);
+test('it calls onUserAdd when the form is submitted', async () => {
+  const mock = vi.fn();
+
+  render(<UserForm onUserAdd={mock} />);
 
   const [nameInput, emailInput] = screen.getAllByRole('textbox');
 
-  user.click(nameInput);
-  user.keyboard('John Doe');
+  await user.click(nameInput);
+  await user.keyboard('John Doe');
 
-  user.click(emailInput);
-  user.keyboard('john@doe.com');
+  await user.click(emailInput);
+  await user.keyboard('john@doe.com');
 
   const button = screen.getByRole('button');
-  user.click(button);
+  await user.click(button);
 
-  expect(argList).toHaveLength(1);
-  expect(argList[0][0]).toEqual({ name: 'John Doe', email: 'john@doe.com'});
-
+  expect(mock).toHaveBeenCalled();
+  expect(mock).toHaveBeenCalledWith({ name: 'John Doe', email: 'john@doe.com'});
 });

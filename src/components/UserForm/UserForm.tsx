@@ -24,7 +24,7 @@ const UserForm = ({ onUserAdd }: UserFormProps) => {
         <label>Email</label>
         <input value={email} type='text' onChange={(e) => setEmail(e.target.value)} />
       </div>
-      <button>Add User</button>
+      <button type='submit'>Add User</button>
     </form>
   );
 }
