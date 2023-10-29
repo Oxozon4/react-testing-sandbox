@@ -1,15 +1,17 @@
 import { render, within, screen } from '../../utils/test-utils';
-import user from '@testing-library/user-event';
-import { vi } from 'vitest';
 import UserList from './UserList';
 
-test('render one row per user', async () => {
+const renderComponent = () => {
   const users = [
     { name: 'jane', email: 'jane@jane.com' },
     { name: 'sam', email: 'sam@sam.com' },
   ];
-
   render(<UserList users={users} />);
+  return { users };
+};
+
+test('render one row per user', async () => {
+  renderComponent();
   const rows = await within(screen.getByTestId('users')).findAllByRole('row');
 
   // Alternative
@@ -20,11 +22,7 @@ test('render one row per user', async () => {
 });
 
 test('render the email and name of each user', () => {
-  const users = [
-    { name: 'jane', email: 'jane@jane.com' },
-    { name: 'sam', email: 'sam@sam.com' },
-  ];
-  render(<UserList users={users} />);
+  const { users } = renderComponent();
   users.forEach((user) => {
     const name = screen.getByRole('cell', { name: user.name });
     const email = screen.getByRole('cell', { name: user.email });
