@@ -44,13 +44,10 @@ test('empties the two inputs when form is submitted', async () => {
 
   await user.click(nameInput);
   await user.keyboard('John Doe');
-
   await user.click(emailInput);
   await user.keyboard('john@doe.com');
-
   await user.click(button);
 
-  // Failing tests - TDD
   expect(nameInput).toHaveValue('');
   expect(emailInput).toHaveValue('');
 });
